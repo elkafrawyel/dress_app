@@ -25,31 +25,31 @@ class MyApp extends StatelessWidget {
     return FocusRemover(
       child: OKToast(
         child: MaterialApp(
-            home: const HomeScreen(),
-            debugShowCheckedModeBanner: false,
-            title: 'بسمة علوان',
-            locale: Locale(appLanguage),
-            theme: ThemeData(
-              primaryColor: Colors.cyan
-            ),
-            supportedLocales: const [Locale('ar', 'EG')],
-            localizationsDelegates: const [
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            builder: (context, navigatorWidget) {
-              try {
-                return MediaQuery(
-                  data: MediaQuery.of(context).copyWith(textScaleFactor: 1.4),
-                  child: navigatorWidget ?? const SizedBox(),
-                );
-              } catch (e) {
-                return navigatorWidget ?? const SizedBox();
-              }
-            },
+          home: const HomeScreen(),
+          debugShowCheckedModeBanner: false,
+          title: 'بسمة علوان',
+          locale: Locale(appLanguage),
+          theme: ThemeData(
+            primaryColor: const Color(0xffED8A8D),
+            appBarTheme: const AppBarTheme(backgroundColor: Color(0xffED8A8D)),
           ),
-
+          supportedLocales: const [Locale('ar', 'EG')],
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          builder: (context, navigatorWidget) {
+            try {
+              return MediaQuery(
+                data: MediaQuery.of(context).copyWith(textScaleFactor: 1.4),
+                child: navigatorWidget ?? const SizedBox(),
+              );
+            } catch (e) {
+              return navigatorWidget ?? const SizedBox();
+            }
+          },
+        ),
       ),
     );
   }

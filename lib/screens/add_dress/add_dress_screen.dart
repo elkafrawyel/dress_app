@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dress_app/app/extensions/space.dart';
 import 'package:dress_app/app/util/constants.dart';
 import 'package:dress_app/app/util/file_picker.dart';
 import 'package:dress_app/app/util/information_viewer.dart';
 import 'package:dress_app/widgets/app_buttons/app_outlined_button.dart';
 import 'package:dress_app/widgets/app_buttons/app_progress_button.dart';
-import 'package:dress_app/widgets/app_buttons/app_text_button.dart';
 import 'package:dress_app/widgets/app_widgets/app_text.dart';
 import 'package:dress_app/widgets/app_widgets/app_text_field/app_text_field.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,26 +22,26 @@ class AddDressScreen extends StatefulWidget {
 }
 
 class _AddDressScreenState extends State<AddDressScreen> {
-  late TextEditingController nameTextEditingController;
-  late TextEditingController priceTextEditingController;
-  late TextEditingController descTextEditingController;
+  // late TextEditingController nameTextEditingController;
+  // late TextEditingController priceTextEditingController;
+  // late TextEditingController descTextEditingController;
 
   List<File> images = [];
 
   @override
   void initState() {
     super.initState();
-    nameTextEditingController = TextEditingController();
-    priceTextEditingController = TextEditingController();
-    descTextEditingController = TextEditingController();
+    // nameTextEditingController = TextEditingController();
+    // priceTextEditingController = TextEditingController();
+    // descTextEditingController = TextEditingController();
   }
 
   @override
   void dispose() {
     super.dispose();
-    nameTextEditingController.dispose();
-    priceTextEditingController.dispose();
-    descTextEditingController.dispose();
+    // nameTextEditingController.dispose();
+    // priceTextEditingController.dispose();
+    // descTextEditingController.dispose();
   }
 
   @override
@@ -56,29 +56,30 @@ class _AddDressScreenState extends State<AddDressScreen> {
           child: Column(
             children: [
               20.ph,
-              AppTextFormField(
-                controller: nameTextEditingController,
-                hintText: 'الآسم',
-                keyboardType: TextInputType.text,
-                required: false,
-              ),
-              AppTextFormField(
-                controller: priceTextEditingController,
-                hintText: 'السعر',
-                keyboardType: TextInputType.number,
-                required: false,
-              ),
-              AppTextFormField(
-                controller: descTextEditingController,
-                hintText: 'الوصف',
-                keyboardType: TextInputType.text,
-                maxLines: 3,
-                required: false,
-              ),
+              // AppTextFormField(
+              //   controller: nameTextEditingController,
+              //   hintText: 'الآسم',
+              //   keyboardType: TextInputType.text,
+              //   required: false,
+              // ),
+              // AppTextFormField(
+              //   controller: priceTextEditingController,
+              //   hintText: 'السعر',
+              //   keyboardType: TextInputType.number,
+              //   required: false,
+              // ),
+              // AppTextFormField(
+              //   controller: descTextEditingController,
+              //   hintText: 'الوصف',
+              //   keyboardType: TextInputType.text,
+              //   maxLines: 3,
+              //   required: false,
+              // ),
               10.ph,
               Center(
                 child: AppOutlinedButton(
                   text: 'إضافة صور الفستان',
+                  fontSize: 18,
                   textColor: Theme.of(context).primaryColor,
                   onPressed: () async {
                     images.addAll(await AppPicker.pickMultiImages());
@@ -101,8 +102,8 @@ class _AddDressScreenState extends State<AddDressScreen> {
                               child: Image.file(
                                 e,
                                 fit: BoxFit.cover,
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                               ),
                             ),
                             PositionedDirectional(
@@ -126,7 +127,7 @@ class _AddDressScreenState extends State<AddDressScreen> {
                       .toList(),
                 ),
               ),
-              30.ph,
+              100.ph,
               AppProgressButton(
                 onPressed: (animationController) async {
                   animationController.forward();
@@ -169,9 +170,13 @@ class _AddDressScreenState extends State<AddDressScreen> {
   }
 
   Future<void> addProduct() async {
-    if (nameTextEditingController.text.isEmpty || priceTextEditingController.text.isEmpty || images.isEmpty) {
+    if (images.isEmpty) {
       return;
     }
+
+    // if (nameTextEditingController.text.isEmpty || priceTextEditingController.text.isEmpty || images.isEmpty) {
+    //   return;
+    // }
 
     String productId = DateTime.now().millisecondsSinceEpoch.toString();
     List<String> imagesUrl = await uploadImagesToFirebaseStorage(images, productId);
@@ -179,9 +184,9 @@ class _AddDressScreenState extends State<AddDressScreen> {
 
     await products.add({
       'id': productId,
-      'name': nameTextEditingController.text,
-      'description': descTextEditingController.text,
-      'price': priceTextEditingController.text,
+      // 'name': nameTextEditingController.text,
+      // 'description': descTextEditingController.text,
+      // 'price': priceTextEditingController.text,
       'images': imagesUrl,
     });
 

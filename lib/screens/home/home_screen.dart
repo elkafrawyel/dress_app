@@ -9,6 +9,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
+import '../../widgets/photos_gallery.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -52,9 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       crossAxisCount: 4,
                       mainAxisSpacing: 4,
                       crossAxisSpacing: 4,
-                      // repeatPattern: QuiltedGridRepeatPattern.inverted,
+                      repeatPattern: QuiltedGridRepeatPattern.inverted,
                       pattern: [
-                        const QuiltedGridTile(2, 2),
+                        const QuiltedGridTile(3, 3),
                         const QuiltedGridTile(1, 1),
                         const QuiltedGridTile(1, 1),
                         const QuiltedGridTile(1, 1),
@@ -63,11 +65,20 @@ class _HomeScreenState extends State<HomeScreen> {
                     childrenDelegate: SliverChildBuilderDelegate(
                       (context, index) => GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //     builder: (context) => DressDetailsScreen(
+                          //       dress: snapshotList[index],
+                          //     ),
+                          //   ),
+                          // );
+
+                          List<dynamic> list = snapshotList[index].get('images').map((e) => e.toString()).toList();
+                          Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (context) => DressDetailsScreen(
-                                dress: snapshotList[index],
+                              builder: (context) => PhotosGallery(
+                                photos: list.map((e) => e.toString()).toList(),
                               ),
                             ),
                           );
